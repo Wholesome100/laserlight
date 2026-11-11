@@ -1,23 +1,31 @@
-use bevy::asset::AssetMetaCheck;
 use bevy::prelude::*;
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins.set(AssetPlugin {
-            // Wasm builds will check for meta files (that don't exist) if this isn't set.
-            // This causes errors and even panics in web builds on itch.
-            // See https://github.com/bevyengine/bevy_github_ci_template/issues/48.
-            meta_check: AssetMetaCheck::Never,
-            ..default()
-        }))
-        .add_systems(Startup, setup)
+        .add_plugins(DefaultPlugins)
+        .add_systems(Startup, scene.spawn())
         .run();
 }
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    commands.spawn(Camera2d);
-    commands.spawn(Sprite {
-        image: asset_server.load("ducky.png"),
-        ..Default::default()
-    });
+/// set up a simple 3D scene
+fn scene() -> impl SceneList {
+    bsn_list! {
+        #CircularBase
+        Mesh3d(asset_value(Circle::new(4.0)))
+        MeshMaterial3d::<StandardMaterial>(asset_value(Color::WHITE))
+        Transform::from_rotation(Quat::from_rotation_x(-std::f32::consts::FRAC_PI_2))
+        --
+        #Cube
+        Mesh3d(asset_value(Cuboid::new(1.0, 1.0, 1.0)))
+        MeshMaterial3d::<StandardMaterial>(asset_value(Color::srgb_u8(124, 144, 255)))
+        Transform::from_xyz(0.0, 0.5, 0.0)
+        --
+        PointLight {
+            shadow_maps_enabled: true,
+        }
+        Transform::from_xyz(4.0, 8.0, 4.0)
+        --
+        Camera3d
+        Transform::from_xyz(-2.5, 4.5, 9.0).looking_at(Vec3::ZERO, Vec3::Y)
+    }
 }
