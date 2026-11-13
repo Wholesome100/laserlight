@@ -29,15 +29,14 @@ fn scene() -> impl SceneList {
         Mesh3d(asset_value(PLAYER_SHAPE))
         RigidBody::Dynamic
         Collider::from(PLAYER_SHAPE)
-        MeshMaterial3d::<StandardMaterial>(asset_value(Color::srgb_u8(124, 144, 255)))
         Transform::from_xyz(0.0, 0.5, 0.0)
+        Children[
+            Camera3d
+        ]
         --
         PointLight {
             shadow_maps_enabled: true,
         }
         Transform::from_xyz(4.0, 8.0, 4.0)
-        --
-        Camera3d
-        Transform::from_xyz(-2.5, 4.5, 9.0).looking_at(Vec3::ZERO, Vec3::Y)
     }
 }
