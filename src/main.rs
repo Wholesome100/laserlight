@@ -1,14 +1,18 @@
 use avian3d::prelude::*;
-use bevy::prelude::*;
+use bevy::{
+    camera_controller::free_camera::{FreeCamera, FreeCameraPlugin},
+    prelude::*,
+};
 
 fn main() {
     App::new()
+        .add_plugins(DefaultPlugins)
         .add_plugins((
-            DefaultPlugins,
             PhysicsPlugins::default(),
             // Enables debug rendering
             PhysicsDebugPlugin,
         ))
+        .add_plugins(FreeCameraPlugin)
         .add_systems(Startup, scene.spawn())
         .run();
 }
@@ -31,7 +35,9 @@ fn scene() -> impl SceneList {
         Collider::from(PLAYER_SHAPE)
         Transform::from_xyz(0.0, 0.5, 0.0)
         Children[
+            Camera{is_active: true}
             Camera3d
+            FreeCamera
         ]
         --
         PointLight {
