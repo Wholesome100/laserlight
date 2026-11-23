@@ -26,6 +26,7 @@ pub fn player_init() -> impl Scene {
         Mesh3d(asset_value(PLAYER_SHAPE))
         RigidBody::Dynamic
         Collider::from(PLAYER_SHAPE)
+        LockedAxes::ROTATION_LOCKED
         Transform::from_xyz(0.0, 0.5, 0.0)
         Children[
             Camera{is_active: true}

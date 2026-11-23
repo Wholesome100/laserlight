@@ -480,6 +480,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "avian_pickup"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6afafe5096c398f004b3c7e8edc2937196cd185f7c009a7db23137c568bb504f"
+dependencies = [
+ "avian3d",
+ "bevy_app",
+ "bevy_ecs",
+ "bevy_log",
+ "bevy_math",
+ "bevy_platform",
+ "bevy_reflect",
+ "bevy_shape",
+ "bevy_time",
+ "bevy_transform",
+ "bevy_utils",
+ "rand",
+]
+
+[[package]]
 name = "base64"
 version = "0.23.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -505,6 +525,28 @@ dependencies = [
  "bevy_derive",
  "bevy_ecs",
  "bevy_reflect",
+]
+
+[[package]]
+name = "bevy_ahoy"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5679d8453717442765fe3e4e475561e1f8c9b2567be3a0234e21679340436aee"
+dependencies = [
+ "avian3d",
+ "avian_pickup",
+ "bevy_app",
+ "bevy_derive",
+ "bevy_ecs",
+ "bevy_enhanced_input",
+ "bevy_math",
+ "bevy_reflect",
+ "bevy_shape",
+ "bevy_time",
+ "bevy_transform",
+ "bevy_utils",
+ "getrandom",
+ "tracing",
 ]
 
 [[package]]
@@ -3749,6 +3791,7 @@ version = "0.0.1"
 dependencies = [
  "avian3d",
  "bevy",
+ "bevy_ahoy",
  "bevy_enhanced_input",
  "rand",
 ]
