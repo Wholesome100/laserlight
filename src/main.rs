@@ -5,9 +5,9 @@ use bevy::{
 };
 use bevy_enhanced_input::prelude::*;
 
-use crate::player::player_init;
+use crate::character::player::player_init as make_player;
 
-pub mod player;
+pub mod character;
 
 fn main() {
     App::new()
@@ -18,7 +18,7 @@ fn main() {
             // Enables debug rendering
             PhysicsDebugPlugin,
         ))
-        .add_plugins((FreeCameraPlugin, player::PlayerPlugin))
+        .add_plugins((FreeCameraPlugin, character::player::PlayerPlugin))
         .add_systems(Startup, scene.spawn())
         .run();
 }
@@ -34,7 +34,7 @@ fn scene() -> impl SceneList {
         Collider::from(STAGE_SHAPE)
         Transform::from_xyz(0., -2. ,0.)
         --
-        @player_init()
+        @make_player()
         --
         PointLight {
             shadow_maps_enabled: true,
