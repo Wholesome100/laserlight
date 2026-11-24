@@ -76,9 +76,10 @@ fn player_move(
         // Once the velocity is greater than the moving value it flies off
 
         // This works, the issue now is stopping it from flying off
+        // The issue was that I was using the positional data in velocity, so the further cuber went, the faster
         linear_velocity.x += delta_secs * moving.value.x;
         dbg!(&linear_velocity, cuber.x, delta_secs, moving.value.x);
-        linear_velocity.z += delta_secs * moving.value.z * -1.;
+        linear_velocity.z -= delta_secs * moving.value.z;
     }
     //
     // let mut cuber = players.get_mut(moving.context).unwrap();
