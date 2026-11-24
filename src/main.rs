@@ -1,8 +1,5 @@
 use avian3d::prelude::*;
-use bevy::{
-    camera_controller::free_camera::{FreeCamera, FreeCameraPlugin},
-    prelude::*,
-};
+use bevy::{camera_controller::free_camera::FreeCameraPlugin, prelude::*};
 use bevy_enhanced_input::prelude::*;
 
 use crate::character::player::player_init as make_player;

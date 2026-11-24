@@ -1,24 +1,12 @@
-use avian3d::prelude::*;
+use avian3d::{parry::math::Vector3, prelude::*};
 use bevy::prelude::*;
 
 use bevy_enhanced_input::prelude::*;
 
-use bevy::{
-    camera_controller::free_camera::{FreeCamera, FreeCameraPlugin},
-    prelude::*,
-};
+use bevy::camera_controller::free_camera::FreeCamera;
 
 #[derive(Component, Default, Clone)]
 struct PlayerChar;
-
-#[derive(Component, Default, Clone)]
-pub struct MovementAcceleration(f32);
-
-#[derive(Component, Default, Clone)]
-pub struct MovementDampingFactor(f32);
-
-#[derive(Component, Default, Clone)]
-pub struct MaxSlopeAngle(f32);
 
 pub struct PlayerPlugin;
 
@@ -49,7 +37,7 @@ pub fn player_init() -> impl Scene {
         Children[
             Camera{is_active: true}
             Camera3d
-            //FreeCamera
+            Transform::from_xyz(0.0, 5.0, 5.0).looking_at(Vector3::ZERO, Vector3::Y)
         ]
         PlayerChar
         Actions<PlayerChar> [
@@ -74,7 +62,6 @@ fn player_move(
     for mut linear_velocity in &mut players {
         // Because this is a kinematic body with no friction to stop it
         // Once the velocity is greater than the moving value it flies off
-
         // This works, the issue now is stopping it from flying off
         // The issue was that I was using the positional data in velocity, so the further cuber went, the faster
         linear_velocity.x += delta_secs * moving.value.x;
@@ -86,6 +73,8 @@ fn player_move(
     // cuber.translation = cuber.translation + moving.value;
 }
 
+/// There is a need for a function that does maintenance on velocity
+/// Examples include dampening and speed capping
 fn dampen_move(
     _moving: On<Complete<Move>>,
     mut players: Query<&mut LinearVelocity, With<PlayerChar>>,
