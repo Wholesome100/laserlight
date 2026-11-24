@@ -14,7 +14,7 @@ impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut App) {
         app.add_input_context::<PlayerChar>();
         app.add_observer(player_move);
-        app.add_observer(dampen_move);
+        app.add_systems(Update, dampen_move);
     }
 }
 
@@ -42,7 +42,7 @@ pub fn player_init() -> impl Scene {
         PlayerChar
         Actions<PlayerChar> [
             Action<Move>::new()
-            ~Scale::splat(1.0)
+            ~Scale::splat(30.0)
             ~SwizzleAxis::XZY
             Bindings[
                 {preset::cardinal::wasd_keys()}
@@ -75,12 +75,9 @@ fn player_move(
 
 /// There is a need for a function that does maintenance on velocity
 /// Examples include dampening and speed capping
-fn dampen_move(
-    _moving: On<Complete<Move>>,
-    mut players: Query<&mut LinearVelocity, With<PlayerChar>>,
-) {
+fn dampen_move(mut players: Query<&mut LinearVelocity, With<PlayerChar>>) {
     for mut linear_velocity in &mut players {
-        linear_velocity.x = 0.;
-        linear_velocity.z = 0.;
+        linear_velocity.x *= 0.92;
+        linear_velocity.z *= 0.92;
     }
 }
