@@ -25,7 +25,7 @@ fn main() {
 
 /// set up a simple 3D scene
 fn scene() -> impl SceneList {
-    const STAGE_SHAPE: Cuboid = Cuboid::new(10.0, 1., 10.);
+    const STAGE_SHAPE: Cuboid = Cuboid::new(100., 1., 100.);
     bsn_list! {
         #TestStage
         Mesh3d(asset_value(STAGE_SHAPE))
