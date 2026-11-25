@@ -1,5 +1,7 @@
 //! Laserlight is a First Person Shooter
+//!
 //! It is going to be a very epic game
+//!
 //! I like pancakes
 
 use avian3d::prelude::*;
