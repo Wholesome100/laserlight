@@ -3,7 +3,7 @@ use bevy::prelude::*;
 
 use bevy_enhanced_input::prelude::*;
 
-use bevy::camera_controller::free_camera::FreeCamera;
+//use bevy::camera_controller::free_camera::FreeCamera;
 
 #[derive(Component, Default, Clone)]
 struct PlayerChar;
